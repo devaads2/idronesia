@@ -30,7 +30,7 @@ class DashboardAdminController extends Controller
             'kits' => $this->Kits->allData(),
             'title' => 'Dashboard'
         ];
-        
+
         return view('admin.dashboard', $data);
     }
 
@@ -41,7 +41,7 @@ class DashboardAdminController extends Controller
         'project' => $this->Project->allData(),
         'title' => 'Map'
     ];
-    
+
     return view("admin.map",$data);
 
     }
@@ -51,7 +51,7 @@ class DashboardAdminController extends Controller
         $data = [
             'title' => 'Plan Mission'
         ];
-        
+
         return view('admin.planmission', $data);
     }
 

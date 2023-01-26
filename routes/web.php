@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BatteriesController;
 use App\Http\Controllers\DashboardAdminController;
+use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\DroneController;
 use App\Http\Controllers\EquipmentsController;
 use App\Http\Controllers\KitsController;
@@ -98,3 +99,8 @@ Route::get('/calendar/download/{id}', [CalendarController::class, 'download'])->
 Route::get('/checklist', [ChecklistController::class, 'index'])->name('checklist');
 Route::get('/checklist/create/{id}', [ChecklistController::class, 'create']);
 Route::post('/checklist/insert/{id}', [ChecklistController::class, 'insert']);
+
+//DOCUMENT
+Route::get('/document', [DocumentController::class, 'index'])->name('document');
+Route::get('/document/print/{id}', [DocumentController::class, 'print']);
+

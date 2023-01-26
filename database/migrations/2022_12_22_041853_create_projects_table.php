@@ -27,6 +27,7 @@ class CreateProjectsTable extends Migration
             $table->string('mission_flight');
             $table->double('latitude');
             $table->double('longitude');
+            $table->string('full_address');
             $table->string('status_project');
             $table->timestamps();
         });

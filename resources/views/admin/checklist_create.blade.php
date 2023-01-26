@@ -87,7 +87,7 @@
             <div class="form-check">
                 <label class="form-check-label">
                 <input type="checkbox" class="form-check-input" name="propellers[]" value="Condotions as per Design" {{ in_array('Condotions as per Design',$propellers) ? 'checked' : '' }}>
-                Condotions as per Design
+                Conditions as per Design
                 </label>
             </div>
             <div class="form-check">

@@ -43,7 +43,7 @@
         </a>
       </li>
       @endcan
-      
+
 
 
      @can('pilot')
@@ -54,7 +54,7 @@
       </a>
     </li>
      @endcan
-      
+
     @can('manager')
     <li class="nav-item">
       <a class="nav-link" href="">
@@ -63,8 +63,8 @@
       </a>
     </li>
     @endcan
-   
-     
+
+
 
 
     </ul>

@@ -10,10 +10,15 @@
 <link rel="stylesheet" href="{{ asset('assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/js/select.dataTables.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/vertical-layout-light/style.css') }}">
-<link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" />
+<link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}"/>
+
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <style type="text/css">
     #map {
-      height: 400px;
+        height: 400px;
     }
+    @yield('css')
+
 </style>
+
+@stack('css_extend')

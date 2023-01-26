@@ -1,61 +1,106 @@
-@extends('templates.main')
+@extends('templates.main')'
+
+@push('css_extend')
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js"></script>
+    <style type="text/css">
+        #mapid {
+            height: 100%;
+            width: 100%;
+        }
+
+        .marker {
+            /*background-size: cover;*/
+            /*width: 30px;*/
+            /*height: 30px;*/
+            /*border-radius: 50%;*/
+            /*cursor: pointer;*/
+            display: block;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .mapboxgl-popup {
+            max-width: 100px;
+        }
+    </style>
+@endpush
 
 @section('content')
-    
 
-<div class="col-lg-12 grid-margin stretch-card">
-    <div class="card">
-      <div class="card-body">
 
-        
-        <div class="d-sm-flex justify-content-between align-items-start mb-3">
-            <div>
-                <h4 class="card-title card-title-dash">{{ $title }}</h4>
-                {{-- <p class="card-subtitle card-subtitle-dash">You have {{ $project->count(); }} data Projects</p> --}}
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-sm-flex justify-content-between align-items-start mb-3">
+                    <div>
+                        <h4 class="card-title card-title-dash">{{ $title }}</h4>
+                        {{-- <p class="card-subtitle card-subtitle-dash">You have {{ $project->count(); }} data Projects</p> --}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-content collapse show">
+                            <div class="card-body" style="height: 550px">
+                                <div id="mapid"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
         </div>
-
-      
-        <div id="map" style='height:400px'></div>
-        
-      </div>
     </div>
-  </div>
 
-{{--  --}}
+        <script src='https://api.mapbox.com/mapbox-gl-js/v2.0.1/mapbox-gl.js'></script>
+        <script
+            src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.min.js"></script>
 
-<script type="text/javascript">
-    function initializeMap() {
-        const locations = <?php echo json_encode($project) ?>;
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2YWFkczIiLCJhIjoiY2xkYms3cWoyMDFkcTN2bnhvMHpkem0yeCJ9.ATwIXZyH200QMvg0Cb3EjA';
+        var map = new mapboxgl.Map({
+            container: 'mapid', // container id
+            style: 'mapbox://styles/mapbox/streets-v11', // style URL
+            center: [115.188919, -8.409518], // starting position [lng, lat]
+            zoom: 8, // starting zoom
+        });
+    </script>
 
-        console.log(locations);
+    <script type="text/javascript">
 
-        const map = new google.maps.Map(document.getElementById("map"));
-        var infowindow = new google.maps.InfoWindow();
-        var bounds = new google.maps.LatLngBounds();
-        for (var location of locations) {
-            var marker = new google.maps.Marker({
-                position: new google.maps.LatLng(location.latitude, location.longitude),
-                map: map
+        $(document).ready(function () {
+
+            const el = document.createElement('div');
+            el.className = 'marker';
+            // el.style.backgroundImage = 'url(/assets/images/drone.png)';
+            el.style.height = '30px';
+            el.style.width = '30px';
+            el.style.backgroundSize = '100%';
+
+            const locations = <?php echo json_encode($project) ?>;
+
+            locations.forEach(marker => {
+                new mapboxgl.Marker()
+                    .setLngLat([marker.longitude, marker.latitude])
+                    .setPopup(
+                        new mapboxgl.Popup({offset: 50}) // add popups
+                            .setHTML(
+                                '<p><b>' +
+                                marker.drone_name +
+                                '</b></p>' +
+                                marker.mission_flight +
+                                ''
+                            )
+                    )
+                    .addTo(map);
             });
-            bounds.extend(marker.position);
-            google.maps.event.addListener(marker, 'click', (function(marker, location) {
-                return function() {
-                    infowindow.setContent(
-                        "Drone Name : " + location.drone_name + " <br> "
-                        + "Mission Flight : " + location.mission_flight + " <br> "
-                        + "Pilot : " +location.id_user);
-                    infowindow.open(map, marker);
-                }
-            })(marker, location));
+        });
 
-        }
-        map.fitBounds(bounds);
-    }
-</script>
-
-    <script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyD-9yZaNNbTuegDhID4kL_3CVx3JBslM6Q&callback=initializeMap"></script>
-
+    </script>
 
 
 @endsection

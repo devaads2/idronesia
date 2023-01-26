@@ -65,17 +65,6 @@ class ProjectController extends Controller
 
     public function insert()
     {
-        // Request()->validate([
-        //     'kits_name' => 'required|unique:kits,kits_name|min:3',
-        //     'type' => 'required',
-        //     'description' => 'required',
-        //     'image' => 'required|mimes:jpeg,jpg,png|max:2048'
-        // ]);
-
-        // $file = Request()->image;
-        // $fileName = Request()->kits_name . '.' . $file->extension();
-        // $file->move(public_path('assets/photos'), $fileName);
-
         Request()->validate([
             'id_pilot' => 'required',
             'id_manager' => 'required',
@@ -116,11 +105,12 @@ class ProjectController extends Controller
             'mission_flight' => Request()->mission_flight,
             'latitude' => Request()->latitude,
             'longitude' => Request()->longitude,
+            'full_address' => Request()->full_address,
             'status_project' => 'Rental',
         ];
 
         $this->Project->insertData($data);
-        return redirect()->route('project')->with('message', 'New Kits Data Added Successfully');
+        return redirect()->route('project')->with('message', 'New Project Data Added Successfully');
     }
 
     public function edit($id)
