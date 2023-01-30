@@ -6,7 +6,7 @@ use App\Models\Checklist;
 use App\Models\Document;
 use Illuminate\Http\Request;
 
-class DocumentController extends Controller
+class ReportController extends Controller
 {
     public function __construct()
     {
@@ -29,29 +29,29 @@ class DocumentController extends Controller
             'detail' => $detail,
             'checklist' => $checklist,
             'title' => 'ID Project',
-            'print' => false,
+            'print' => true,
         ];
 
         return view('admin.documents', $data);
     }
 
-//    public function print(Request $request)
-//    {
-//        $id = $request->id;
-//        $detail = $this->Document->detailData($id);
-//
-//        if ($detail != null) {
-//            $checklist = Checklist::where('id_checklists', $detail->id_checklist)->get();
-//        } else {
-//            $checklist = null;
-//        }
-//
-//        $data = [
-//            'detail' => $this->Document->detailData($id),
-//            'checklist' => $checklist,
-//            'title' => 'ID Project',
-//        ];
-//
-//        return view('admin.documents_download', $data);
-//    }
+    public function print(Request $request)
+    {
+        $id = $request->id;
+        $detail = $this->Document->detailData($id);
+
+        if ($detail != null) {
+            $checklist = Checklist::where('id_checklists', $detail->id_checklist)->get();
+        } else {
+            $checklist = null;
+        }
+
+        $data = [
+            'detail' => $this->Document->detailData($id),
+            'checklist' => $checklist,
+            'title' => 'ID Project',
+        ];
+
+        return view('admin.documents_download', $data);
+    }
 }

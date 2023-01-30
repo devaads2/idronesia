@@ -57,9 +57,9 @@
 
     @can('manager')
     <li class="nav-item">
-      <a class="nav-link" href="">
+      <a class="nav-link" href="/report">
         <i class="mdi mdi-file menu-icon"></i>
-        <span class="menu-title">Report Manager</span>
+        <span class="menu-title">Report</span>
       </a>
     </li>
     @endcan

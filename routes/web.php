@@ -8,6 +8,7 @@ use App\Http\Controllers\EquipmentsController;
 use App\Http\Controllers\KitsController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserManagement;
 use App\Http\Controllers\ChecklistController;
 use Illuminate\Support\Facades\Route;
@@ -102,5 +103,8 @@ Route::post('/checklist/insert/{id}', [ChecklistController::class, 'insert']);
 
 //DOCUMENT
 Route::get('/document', [DocumentController::class, 'index'])->name('document');
-Route::get('/document/print/{id}', [DocumentController::class, 'print']);
+
+//REPORT
+Route::get('/report', [ReportController::class, 'index'])->name('report');
+Route::get('/report/print/{id}', [ReportController::class, 'print']);
 

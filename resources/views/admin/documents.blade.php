@@ -48,14 +48,16 @@
                         </form>
                     </div>
                     <div class="col-md-2 px-0">
-                        @if(isset($checklist))
-                            <span>
-                                <a class="btn btn-info btn-icon-text print-button" href="/document/print/{{$detail->id_projects}}}"
+                        @if($print === true)
+                            @if(isset($checklist))
+                                <span>
+                                <a class="btn btn-info btn-icon-text print-button" href="/report/print/{{$detail->id_projects}}}"
                                    target="_blank">Print<i class="ti-printer btn-icon-append"></i></a>
                             </span>
-                        @else
-                            <span class="btn btn-block btn-secondary text-black btn-icon-text disabled" href="#">Print<i
-                                    class="ti-printer btn-icon-append"></i></span>
+                            @else
+                                <span class="btn btn-block btn-secondary text-black btn-icon-text disabled" href="#">Print<i
+                                        class="ti-printer btn-icon-append"></i></span>
+                            @endif
                         @endif
                     </div>
                 </div>
