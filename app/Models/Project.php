@@ -22,10 +22,20 @@ class Project extends Model
             ->get();
     }
 
+    public function allDataWithQuery()
+    {
+        return DB::table('projects')
+            ->leftJoin('drones', 'drones.id', '=', 'projects.id_drone')
+            ->leftJoin('batteries', 'batteries.id', '=', 'projects.id_batteries')
+            ->leftJoin('equipments', 'equipments.id', '=', 'projects.id_equipments')
+            ->leftJoin('kits', 'kits.id', '=', 'projects.id_kits')
+            ->leftJoin('users', 'users.id', '=', 'projects.id_pilot');
+    }
+
     public function detailData($id)
     {
         // return DB::table('projects')->where('id', $id)->first();
-        
+
         return DB::table('projects')
             ->leftJoin('drones', 'drones.id', '=', 'projects.id_drone')
             ->leftJoin('batteries', 'batteries.id', '=', 'projects.id_batteries')
@@ -34,13 +44,13 @@ class Project extends Model
             ->leftJoin('users', 'users.id', '=', 'projects.id_pilot')
             ->where('projects.id_projects', $id)
             ->first();
-            
+
     }
 
     public function detailProjectDrone($id)
     {
         // return DB::table('projects')->where('id', $id)->first();
-        
+
         return DB::table('projects')
             ->select('users.name', 'projects.*','drones.drone_name','drones.image','batteries.batteries_name','equipments.equipments_name','kits.kits_name')
             ->leftJoin('drones', 'drones.id', '=', 'projects.id_drone')
@@ -50,11 +60,11 @@ class Project extends Model
             ->leftJoin('users', 'users.id', '=', 'projects.id_pilot')
             ->where('projects.id_projects', $id)
             ->first();
-            
+
     }
 
     public function calendarDrone($id)
-    {        
+    {
         return DB::table('projects')
             ->select('start_date', 'until_date', 'drones.drone_name')
             ->leftJoin('drones', 'drones.id', '=', 'projects.id_drone')

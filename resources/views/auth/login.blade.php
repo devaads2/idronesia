@@ -6,7 +6,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Star Admin2 </title>
+  <title>IDRONESIA</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="{{ asset('assets/vendors/feather/feather.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/vendors/mdi/css/materialdesignicons.min.css') }}">
@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="{{ asset('assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/js/select.dataTables.min.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/vertical-layout-light/style.css') }}">
-  <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" />
+  <link rel="shortcut icon" href="{{ asset('assets/images/fav.png') }}" />
 </head>
 
 <body>
@@ -27,12 +27,12 @@
         <div class="row w-100 mx-0">
           <div class="col-lg-4 mx-auto">
             <div class="auth-form-light text-left py-5 px-4 px-sm-5">
-              <div class="brand-logo">
-                <img src="{{ asset('assets/images/logo.svg') }}" alt="logo">
+              <div style="text-align: center">
+                <img style="width: 200px; margin-bottom: 30px" src="{{ asset('assets/images/logo-new.png') }}" alt="logo">
               </div>
 
-              <h4>Hello! let's get started</h4>
-              <h6 class="fw-light">Sign in to continue.</h6>
+              <h4>Hello! Welcome to IDRONESIA</h4>
+              <h6 class="fw-light">Please sign in to continue.</h6>
 
               @if (session()->has('loginError'))
               <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
@@ -55,8 +55,11 @@
                 <div class="form-group">
                   <input type="password" class="form-control form-control-lg" placeholder="Password" name="password" required>
                 </div>
-                <div class="mt-3">
-                  <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" type="submit">SIGN IN</button>
+                <div class="mt-3 text center">
+                    <div class="row" style="padding-left: 30px; padding-right: 30px">
+                        <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" type="submit">SIGN IN</button>
+                    </div>
+
                 </div>
                 {{-- <div class="my-2 d-flex justify-content-between align-items-center">
                   <div class="form-check">

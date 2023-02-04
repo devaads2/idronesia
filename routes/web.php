@@ -7,6 +7,7 @@ use App\Http\Controllers\DroneController;
 use App\Http\Controllers\EquipmentsController;
 use App\Http\Controllers\KitsController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PlanMissionController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserManagement;
@@ -28,7 +29,6 @@ use App\Http\Controllers\CalendarController;
 
 Route::get('/', [DashboardAdminController::class, 'index'])->name('dashboard_admin')->middleware('auth');
 Route::get('/map', [DashboardAdminController::class, 'showMap'])->name('map');
-Route::get('/plan_mission', [DashboardAdminController::class, 'planMission'])->name('plan_mission');
 
 //AUTH
 Route::get('/login', [LoginController::class, 'index'])->name('login');
@@ -48,6 +48,7 @@ Route::post('/project/insert', [ProjectController::class, 'insert']);
 Route::get('/project/edit/{id}', [ProjectController::class, 'edit']);
 Route::post('/project/update/{id}', [ProjectController::class, 'update']);
 Route::get('/project/delete/{id}', [ProjectController::class, 'delete']);
+Route::post('/project/finalize', [ProjectController::class, 'finalizeProject'])->name('project.finalize');
 
 // ADMIN DRONE
 Route::get('/inventory/drone', [DroneController::class, 'index'])->name('drone');
@@ -108,3 +109,7 @@ Route::get('/document', [DocumentController::class, 'index'])->name('document');
 Route::get('/report', [ReportController::class, 'index'])->name('report');
 Route::get('/report/print/{id}', [ReportController::class, 'print']);
 
+//PLAN MISSION
+Route::get('/plan_mission', [PlanMissionController::class, 'index'])->name('plan_mission');
+Route::resource('planmission', PlanMissionController::class);
+Route::get('/get_plan_mission', [PlanMissionController::class, 'getPlanMission'])->name('plan_mission.get');

@@ -106,7 +106,7 @@ class ProjectController extends Controller
             'latitude' => Request()->latitude,
             'longitude' => Request()->longitude,
             'full_address' => Request()->full_address,
-            'status_project' => 'Rental',
+            'status_project' => 'In Progress',
         ];
 
         $this->Project->insertData($data);
@@ -152,7 +152,7 @@ class ProjectController extends Controller
             'mission_flight' => Request()->mission_flight,
             'latitude' => Request()->latitude,
             'longitude' => Request()->longitude,
-            'status_project' => 'test',
+            'status_project' => Request()->status_project,
         ];
 
         $this->Project->updateData($id, $data);
@@ -167,6 +167,14 @@ class ProjectController extends Controller
         return redirect()->route('project')->with('message', 'Project Data Deleted Successfully');
     }
 
+    public function finalizeProject(Request $request)
+    {
+        $id = $request->id;
+        $status = $request->status;
 
+        Project::where('id_projects', $id)->update(['status_project' => $status]);
+
+        return response()->json(['success' => 'success'], 200);
+    }
 
 }

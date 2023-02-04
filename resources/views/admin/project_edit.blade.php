@@ -1,7 +1,7 @@
 @extends('templates.main')
 
 @section('content')
-    
+
 
 <div class="col-12 grid-margin stretch-card">
     <div class="card">
@@ -38,14 +38,15 @@
               </div>
 
               <div class="form-group">
-                <label for="exampleInputName1">Select Drone</label>
+                <label for="exampleInputName1">Project Status</label>
                 <select class="form-select form-select-sm" name="id_drone">
-                        <option value="{{ $project->status_project }}" {{ ($project->status_project == 'Rental') ? 'selected' : '' }}>Rental</option>
-                        <option value="{{ $project->status_project }}" {{ ($project->status_project == 'Done') ? 'selected' : '' }}>Done</option>
+                        <option value="{{ $project->status_project }}" {{ ($project->status_project == 'In Progress') ? 'selected' : '' }}>In Progress</option>
+                        <option value="{{ $project->status_project }}" {{ ($project->status_project == 'Complete') ? 'selected' : '' }}>Complete</option>
+                        <option value="{{ $project->status_project }}" {{ ($project->status_project == 'Cancelled') ? 'selected' : '' }}>Cancelled</option>
                 </select>
             </div>
-           
-    
+
+
               {{-- oldvalue --}}
             <div class="form-group">
                 <input type="hidden" class="form-control" id="value_lat" value="{{ $project->latitude }}">
@@ -105,16 +106,16 @@
                                 <option value="{{ $k->id }}" {{ ($k->id == $project->id_kits) ? 'selected' : '' }}>{{ $k->kits_name }}</option>
                             @endforeach
                         </select>
-                      </div>        
+                      </div>
                 </div>
               </div>
-       
+
           <button type="submit" class="btn btn-primary btn-lg text-light">Submit</button>
           <a href="/project" class="btn btn-danger btn-lg text-light">Cancel</a>
 
         </form>
 
-        
+
 
     <script>
     function initMap() {
@@ -123,20 +124,20 @@
         var longValue = parseFloat(document.getElementById("value_long").value);
 
         var myLatLng = {lat: latValue, lng: longValue};
-    
+
         var map = new google.maps.Map(document.getElementById('map'), {
         center: myLatLng,
         zoom: 13
         });
-    
+
         var marker = new google.maps.Marker({
             position: myLatLng,
             map: map,
             title: 'Hello World!',
             draggable: true
             });
-            
-    
+
+
         google.maps.event.addListener(marker, 'dragend', function(marker) {
             var latLng = marker.latLng;
             // document.getElementById('lat-span').innerHTML = latLng.lat();
@@ -145,17 +146,17 @@
             document.getElementById("longitude").value = latLng.lng();
         });
     }
-    
+
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?libraries=places&callback=initMap" async defer></script>
-    
+
 
 
       </div>
     </div>
 </div>
 
-    
+
 
 
 @endsection
