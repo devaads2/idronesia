@@ -139,7 +139,9 @@ class ProjectController extends Controller
             'id_kits' => 'required',
             'start_date' => 'required',
             'until_date' => 'required',
-            'id_kits' => 'required',
+            'latitude' => 'required',
+            'longitude' => 'required',
+            'full_address' => 'required',
         ]);
 
         $data = [
@@ -152,7 +154,7 @@ class ProjectController extends Controller
             'mission_flight' => Request()->mission_flight,
             'latitude' => Request()->latitude,
             'longitude' => Request()->longitude,
-            'status_project' => Request()->status_project,
+            'full_address' => Request()->full_address,
         ];
 
         $this->Project->updateData($id, $data);
