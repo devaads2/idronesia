@@ -6,8 +6,8 @@
           </button>
         </div>
         <div>
-          <a class="navbar-brand brand-logo" href="index.html">
-             <img src="{{ asset('assets/images/logo-new.png') }}" alt="logo" />
+          <a class="navbar-brand brand-logo" href="/">
+             <img style="height: 40px;" src="{{ asset('assets/images/fav.png') }}" alt="logo" />
 {{--            IDRONESIA--}}
           </a>
           <a class="navbar-brand brand-logo-mini" href="index.html">
@@ -19,7 +19,7 @@
         <ul class="navbar-nav">
           <li class="nav-item font-weight-semibold d-none d-lg-block ms-0">
             <h1 class="welcome-text">Hello, <span class="text-black fw-bold">{{ auth()->user()->name }}</span></h1>
-            <h3 class="welcome-sub-text">IDRONESIA the Drone Management System</h3>
+            <h3 class="welcome-sub-text">IDRONENESIA the Drone Management System</h3>
           </li>
         </ul>
         <ul class="navbar-nav ms-auto">

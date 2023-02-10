@@ -28,10 +28,10 @@
           <div class="col-lg-4 mx-auto">
             <div class="auth-form-light text-left py-5 px-4 px-sm-5">
               <div style="text-align: center">
-                <img style="width: 200px; margin-bottom: 30px" src="{{ asset('assets/images/logo-new.png') }}" alt="logo">
+                <img style="width: 360px; margin-bottom: 30px" src="{{ asset('assets/images/idronesia.png') }}" alt="logo">
               </div>
 
-              <h4>Hello! Welcome to IDRONESIA</h4>
+              <h4>Hello! Welcome to IDRONENESIA</h4>
               <h6 class="fw-light">Please sign in to continue.</h6>
 
               @if (session()->has('loginError'))
