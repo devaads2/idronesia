@@ -54,7 +54,7 @@
             </div>
             <hr class="mb-2">
             <dl class="row">
-                <dt class="col-sm-3">ID Transaction</dt>
+                <dt class="col-sm-3">ID Project</dt>
                 <dd class="col-sm-9">{{$detail->id_projects}}</dd>
 
                 <dt class="col-sm-3">Start Date</dt>

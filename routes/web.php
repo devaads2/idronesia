@@ -39,6 +39,10 @@ Route::post('/logout', [LoginController::class, 'logout']);
 Route::get('/user', [UserManagement::class, 'index'])->name('user_management');
 Route::get('/user/create', [UserManagement::class, 'create']);
 Route::post('/user/insert', [UserManagement::class, 'insert']);
+Route::get('/user/detail/{id}', [UserManagement::class, 'detail']);
+Route::post('/user/update/{id}', [UserManagement::class, 'update']);
+Route::get('/user/edit/{id}', [UserManagement::class, 'edit']);
+Route::get('/user/delete/{id}', [UserManagement::class, 'delete']);
 
 // ADMIN PROJECTS
 Route::get('/project', [ProjectController::class, 'index'])->name('project')->middleware('admin');

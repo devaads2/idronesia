@@ -1,12 +1,12 @@
 @extends('templates.main')
 
 @section('content')
-    
+
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
           <div class="card-body">
-    
-            
+
+
             <div class="d-sm-flex justify-content-between align-items-start mb-3">
                 <div>
                     <h4 class="card-title card-title-dash">{{ $title }}</h4>
@@ -61,25 +61,24 @@
         </div>
       </div>
 
-      {{-- @foreach ($batteries as $item)
+    @foreach ($user as $item)
       <div class="modal fade" id="exampleModal{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">DELETE {{ $item->batteries_name }}</h5>
+              <h5 class="modal-title" id="exampleModalLabel">ATTENTION!</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              Are you sure you want to delete {{ $item->batteries_name }} ?
+              Are you sure you want to delete {{ $item->name }} account data?
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-primary text-light" data-bs-dismiss="modal">NO</button>
-              <a href="/inventory/batteries/delete/{{ $item->id }}" class="btn btn-danger text-light">YES</a>
+              <a href="/user/delete/{{ $item->id }}" class="btn btn-danger text-light">YES</a>
             </div>
           </div>
         </div>
       </div>
-      @endforeach --}}
-      <!-- Modal -->
+    @endforeach
 
 @endsection

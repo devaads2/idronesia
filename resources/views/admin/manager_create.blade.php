@@ -1,7 +1,7 @@
 @extends('templates.main')
 
 @section('content')
-    
+
 <div class="col-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
@@ -64,7 +64,7 @@
                   {{ $message }}
                   @enderror
               </div>
-              </div>        
+              </div>
         </div>
 
           <div class="form-group">
@@ -87,8 +87,8 @@
             </div>
         </div>
 
+            <a href="/user" class="btn btn-danger btn-lg text-light">Cancel</a>
           <button type="submit" class="btn btn-primary btn-lg text-light">Submit</button>
-          <a href="/inventory/kits" class="btn btn-danger btn-lg text-light">Cancel</a>
 
         </form>
 
