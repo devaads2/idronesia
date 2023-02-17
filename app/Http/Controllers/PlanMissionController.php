@@ -48,5 +48,43 @@ class PlanMissionController extends Controller
         return response()->json(['data' => $data]);
     }
 
+    public function create()
+    {
+        return view('admin.planmission_create');
+    }
+
+    public function insert()
+    {
+        info(Request());
+        info(var_dump(Request()->features));
+
+        Request()->validate([
+            'address' => 'required',
+            'locations' => 'required',
+        ]);
+
+
+        $data = [
+            'id_project' => '1',
+            'address' => Request()->address,
+            'locations' => Request()->locations,
+        ];
+
+        $this->Planmission->insertData($data);
+        return redirect()->route('plan_mission')->with('message', 'New Plan Mission Data Added Successfully');
+    }
+
+    public function edit($id)
+    {
+        if(!$this->Planmission->detailData($id))
+        {
+            abort(404);
+        }
+        $data = [
+            'title' => 'Edit Plan Mission',
+            'drone' => $this->Planmission->detailData($id)
+        ];
+        return view('admin.planmission_edit', $data);
+    }
 
 }

@@ -129,7 +129,7 @@ class UserManagement extends Controller
     {
         $user = $this->User->detailData($id);
 
-        if($user->image <> '' || $user->image <> 'user.jpg' )
+        if($user->image <> 'user.jpg' )
         {
             unlink(public_path('assets/photos/profile').'/'.$user->image);
         }

@@ -40,7 +40,7 @@
                         <div class="row">
                         <div class="col-sm-4">
                             <p class="status-summary-ight-white mb-1">Total Drones</p>
-                            <h2 class="text-light">{{ $batteries->count() }}</h2>
+                            <h2 class="text-light">{{ $drone->count() }}</h2>
                         </div>
                         <div class="col-sm-8">
                             <div class="status-summary-chart-wrapper pb-4">

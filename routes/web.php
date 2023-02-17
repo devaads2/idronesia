@@ -117,3 +117,6 @@ Route::get('/report/print/{id}', [ReportController::class, 'print']);
 Route::get('/plan_mission', [PlanMissionController::class, 'index'])->name('plan_mission');
 Route::resource('planmission', PlanMissionController::class);
 Route::get('/get_plan_mission', [PlanMissionController::class, 'getPlanMission'])->name('plan_mission.get');
+Route::get('/planmission/create', [PlanMissionController::class, 'create']);
+Route::post('/planmission/insert', [PlanMissionController::class, 'insert']);
+Route::get('/planmission/edit/{id}', [PlanMissionController::class, 'edit']);
