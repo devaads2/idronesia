@@ -9,6 +9,7 @@ use App\Models\Kits;
 use App\Models\Project;
 use App\Models\User;
 use App\Models\Checklist;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -81,19 +82,33 @@ class ProjectController extends Controller
             'latitude.required' => 'Choose Drone Marker First !'
         ]);
 
-        $checklist = new Checklist();
-        $checklist->visual = '["-"]';
-        $checklist->control = '["-"]';
-        $checklist->propellers = '["-"]';
-        $checklist->power = '["-"]';
-        $checklist->payload = '["-"]';
-        $checklist->monitor = '["-"]';
-        $checklist->save();
+        $checklistBefore = new Checklist();
+        $checklistBefore->visual = '["-"]';
+        $checklistBefore->control = '["-"]';
+        $checklistBefore->propellers = '["-"]';
+        $checklistBefore->power = '["-"]';
+        $checklistBefore->payload = '["-"]';
+        $checklistBefore->monitor = '["-"]';
+        $checklistBefore->image = 'null';
+        $checklistBefore->status = 'ready';
+        $checklistBefore->type = 'before';
+        $checklistBefore->save();
 
-
+        $checklistAfter = new Checklist();
+        $checklistAfter->visual = '["-"]';
+        $checklistAfter->control = '["-"]';
+        $checklistAfter->propellers = '["-"]';
+        $checklistAfter->power = '["-"]';
+        $checklistAfter->payload = '["-"]';
+        $checklistAfter->monitor = '["-"]';
+        $checklistAfter->image = 'null';
+        $checklistAfter->status = 'waiting';
+        $checklistAfter->type = 'after';
+        $checklistAfter->save();
 
         $data = [
-            'id_checklist' => $checklist->id,
+            'id_checklist_before' => $checklistBefore->id,
+            'id_checklist_after' => $checklistAfter->id,
             'id_manager' => Request()->id_manager,
             'id_pilot' => Request()->id_pilot,
             'id_drone' => Request()->id_drone,
@@ -106,7 +121,7 @@ class ProjectController extends Controller
             'latitude' => Request()->latitude,
             'longitude' => Request()->longitude,
             'full_address' => Request()->full_address,
-            'status_project' => 'In Progress',
+            'status_project' => 'On Schedule',
         ];
 
         $this->Project->insertData($data);

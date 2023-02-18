@@ -102,8 +102,10 @@ Route::get('/flight/download/{id}', [FlightController::class, 'download'])->name
 Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar');
 Route::get('/calendar/download/{id}', [CalendarController::class, 'download'])->name('calendar.download');
 
-Route::get('/checklist', [ChecklistController::class, 'index'])->name('checklist');
+Route::get('/checklist-before', [ChecklistController::class, 'index'])->name('checklist');
+Route::get('/checklist-after', [ChecklistController::class, 'indexAfter'])->name('checklistAfter');
 Route::get('/checklist/create/{id}', [ChecklistController::class, 'create']);
+Route::get('/checklist/detail/{id}', [ChecklistController::class, 'detail']);
 Route::post('/checklist/insert/{id}', [ChecklistController::class, 'insert']);
 
 //DOCUMENT

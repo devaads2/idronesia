@@ -59,7 +59,8 @@
               <div class="form-group">
                 <label for="status_project">Project Status</label>
                 <select class="form-select form-select-sm" name="status_project" disabled>
-                        <option value="{{ $project->status_project }}" {{ ($project->status_project == 'In Progress') ? 'selected' : '' }}>In Progress</option>
+                        <option value="{{ $project->status_project }}" {{ ($project->status_project == 'On Schedule') ? 'selected' : '' }}>On Schedule</option>
+                        <option value="{{ $project->status_project }}" {{ ($project->status_project == 'On Flight') ? 'selected' : '' }}>On Flight</option>
                         <option value="{{ $project->status_project }}" {{ ($project->status_project == 'Complete') ? 'selected' : '' }}>Complete</option>
                         <option value="{{ $project->status_project }}" {{ ($project->status_project == 'Cancelled') ? 'selected' : '' }}>Cancelled</option>
                 </select>

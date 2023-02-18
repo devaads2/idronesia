@@ -15,7 +15,7 @@ class Document extends Model
     public function detailData($id)
     {
         return DB::table('projects')
-            ->select('projects.id_projects', 'projects.id_checklist', 'projects.start_date', 'projects.until_date',
+            ->select('projects.id_projects', 'projects.id_checklist_before', 'projects.id_checklist_after', 'projects.start_date', 'projects.until_date',
                 'projects.mission_flight', 'projects.full_address', 'users.name',
                 'drones.drone_name', 'batteries.batteries_name', 'equipments.equipments_name', 'kits.kits_name',
             )
