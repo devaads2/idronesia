@@ -20,7 +20,10 @@ class ReportController extends Controller
         $detail = $this->Document->detailData($id);
 
         if ($detail != null) {
-            $checklist = Checklist::where('id_checklists', $detail->id_checklist)->get();
+            $checklist = Checklist::where('id_checklists', $detail->id_checklist_after)->get();
+            if($checklist[0]->status <> 'done') {
+                $checklist = Checklist::where('id_checklists', $detail->id_checklist_before)->get();
+            }
         } else {
             $checklist = null;
         }
@@ -41,7 +44,10 @@ class ReportController extends Controller
         $detail = $this->Document->detailData($id);
 
         if ($detail != null) {
-            $checklist = Checklist::where('id_checklists', $detail->id_checklist)->get();
+            $checklist = Checklist::where('id_checklists', $detail->id_checklist_after)->get();
+            if($checklist[0]->status <> 'done') {
+                $checklist = Checklist::where('id_checklists', $detail->id_checklist_before)->get();
+            }
         } else {
             $checklist = null;
         }
