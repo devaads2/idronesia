@@ -72,7 +72,7 @@
                                 '<p><b>' +
                                 marker.drone_name +
                                 '</b></p>' +
-                                marker.mission_flight +
+                                marker.mission_flight_name +
                                 ''
                             )
                     )

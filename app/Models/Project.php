@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 class Project extends Model
 {
     use HasFactory;
+
     protected $guarded = ['id_projects'];
 
     public function allData()
@@ -19,6 +20,7 @@ class Project extends Model
             ->leftJoin('equipments', 'equipments.id', '=', 'projects.id_equipments')
             ->leftJoin('kits', 'kits.id', '=', 'projects.id_kits')
             ->leftJoin('users', 'users.id', '=', 'projects.id_pilot')
+            ->leftJoin('missionflights', 'missionflights.mission_flight_id', '=', 'projects.id_mission_flight')
             ->get();
     }
 
@@ -29,7 +31,8 @@ class Project extends Model
             ->leftJoin('batteries', 'batteries.id', '=', 'projects.id_batteries')
             ->leftJoin('equipments', 'equipments.id', '=', 'projects.id_equipments')
             ->leftJoin('kits', 'kits.id', '=', 'projects.id_kits')
-            ->leftJoin('users', 'users.id', '=', 'projects.id_pilot');
+            ->leftJoin('users', 'users.id', '=', 'projects.id_pilot')
+            ->leftJoin('missionflights', 'missionflights.mission_flight_id', '=', 'projects.id_mission_flight');
     }
 
     public function detailData($id)
@@ -42,6 +45,7 @@ class Project extends Model
             ->leftJoin('equipments', 'equipments.id', '=', 'projects.id_equipments')
             ->leftJoin('kits', 'kits.id', '=', 'projects.id_kits')
             ->leftJoin('users', 'users.id', '=', 'projects.id_pilot')
+            ->leftJoin('missionflights', 'missionflights.mission_flight_id', '=', 'projects.id_mission_flight')
             ->where('projects.id_projects', $id)
             ->first();
 
@@ -52,12 +56,13 @@ class Project extends Model
         // return DB::table('projects')->where('id', $id)->first();
 
         return DB::table('projects')
-            ->select('users.name', 'projects.*','drones.drone_name','drones.image','batteries.batteries_name','equipments.equipments_name','kits.kits_name')
+            ->select('users.name', 'projects.*', 'drones.drone_name', 'drones.image', 'batteries.batteries_name', 'equipments.equipments_name', 'kits.kits_name', 'missionflights.mission_flight_name')
             ->leftJoin('drones', 'drones.id', '=', 'projects.id_drone')
             ->leftJoin('batteries', 'batteries.id', '=', 'projects.id_batteries')
             ->leftJoin('equipments', 'equipments.id', '=', 'projects.id_equipments')
             ->leftJoin('kits', 'kits.id', '=', 'projects.id_kits')
             ->leftJoin('users', 'users.id', '=', 'projects.id_pilot')
+            ->leftJoin('missionflights', 'missionflights.mission_flight_id', '=', 'projects.id_mission_flight')
             ->where('projects.id_projects', $id)
             ->first();
 

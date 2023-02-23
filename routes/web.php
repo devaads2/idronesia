@@ -15,6 +15,7 @@ use App\Http\Controllers\ChecklistController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FlightController;
 use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\MissionFlightController;
 
 /*
 |--------------------------------------------------------------------------
@@ -97,21 +98,30 @@ Route::get('/inventory/kits/download', [KitsController::class, 'download']);
 // ADMIN FLIGHT
 Route::get('/flight', [FlightController::class, 'index'])->name('flight');
 Route::get('/flight/download/{id}', [FlightController::class, 'download'])->name('flight.download');
+Route::get('/flight/get_list', [FlightController::class, 'getList'])->name('flight.get');
+Route::get('/flight/detail/{id}', [FlightController::class, 'getDetail'])->name('flight.detail');
 
 //CALENDAR
 Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar');
 Route::get('/calendar/download/{id}', [CalendarController::class, 'download'])->name('calendar.download');
+Route::get('/calendar/get_list', [CalendarController::class, 'getList'])->name('calendar.get');
+Route::get('/calendar/detail/{id}', [CalendarController::class, 'getDetail'])->name('calendar.detail');
 
-Route::get('/checklist', [ChecklistController::class, 'index'])->name('checklist');
+Route::get('/checklist-before', [ChecklistController::class, 'index'])->name('checklist');
+Route::get('/checklist-after', [ChecklistController::class, 'indexAfter'])->name('checklistAfter');
 Route::get('/checklist/create/{id}', [ChecklistController::class, 'create']);
+Route::get('/checklist/detail/{id}', [ChecklistController::class, 'detail']);
 Route::post('/checklist/insert/{id}', [ChecklistController::class, 'insert']);
 
 //DOCUMENT
 Route::get('/document', [DocumentController::class, 'index'])->name('document');
+Route::get('/document/detail/{id}', [DocumentController::class, 'getDetail'])->name('document.detail');
 
 //REPORT
 Route::get('/report', [ReportController::class, 'index'])->name('report');
 Route::get('/report/print/{id}', [ReportController::class, 'print']);
+Route::get('/report/get_list', [ReportController::class, 'getList'])->name('report.get');
+Route::get('/report/detail/{id}', [ReportController::class, 'getDetail'])->name('report.detail');
 
 //PLAN MISSION
 Route::get('/plan_mission', [PlanMissionController::class, 'index'])->name('plan_mission');
@@ -120,3 +130,11 @@ Route::get('/get_plan_mission', [PlanMissionController::class, 'getPlanMission']
 Route::get('/planmission/create', [PlanMissionController::class, 'create']);
 Route::post('/planmission/insert', [PlanMissionController::class, 'insert']);
 Route::get('/planmission/edit/{id}', [PlanMissionController::class, 'edit']);
+
+// ADMIN MISSION FLIGHT
+Route::get('/datamaster/missionflight', [MissionFlightController::class, 'index'])->name('missionflight');
+Route::get('/datamaster/missionflight/detail/{id}', [MissionFlightController::class, 'detail']);
+Route::post('/datamaster/missionflight/insert', [MissionFlightController::class, 'insert'])->name('missionflight.insert');
+Route::get('/datamaster/missionflight/edit/{id}', [MissionFlightController::class, 'edit']);
+Route::post('/datamaster/missionflight/update/{id}', [MissionFlightController::class, 'update']);
+Route::get('/datamaster/missionflight/delete/{id}', [MissionFlightController::class, 'delete']);

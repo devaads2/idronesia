@@ -137,13 +137,15 @@
                         "data": null,
                         "defaultContent": ""
                     },
-                    {"data": "mission_flight"},
+                    {"data": "mission_flight_name"},
                     {"data": "start_date"},
                     {"data": "until_date"},
                     {"data": "status_project",
                         "render": function(data, type, row) {
-                            if(row.status_project === "In Progress") {
-                                return '<span class="btn btn-primary btn-fw m-0 text-white" style="line-height: 20px"> In Progress</span>'
+                            if(row.status_project === "On Schedule") {
+                                return '<span class="btn btn-primary btn-fw m-0 text-white" style="line-height: 20px"> On Schedule</span>'
+                            } else if (row.status_project === "On Flight") {
+                                return '<span class="btn btn-info btn-fw m-0 text-white" style="line-height: 20px">On Flight</span>'
                             } else if (row.status_project === "Cancelled") {
                                 return '<span class="btn btn-danger btn-fw m-0 text-white" style="line-height: 20px">Cancelled</span>'
                             } else {

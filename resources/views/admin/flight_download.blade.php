@@ -64,7 +64,7 @@
     <tr>
       <td>Mission Flight</td>
       <td style="width: 2%;">:</td>
-      <td>{{ $detail->mission_flight }}</td>
+      <td>{{ $detail->mission_flight_name }}</td>
     </tr>
     <tr>
       <td style="width: 20%;">Location</td>

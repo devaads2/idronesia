@@ -63,7 +63,7 @@
                 <dd class="col-sm-3">{{$detail->until_date}}</dd>
 
                 <dt class="col-sm-3">Mission Flight</dt>
-                <dd class="col-sm-9">{{$detail->mission_flight}}</dd>
+                <dd class="col-sm-9">{{$detail->mission_flight_name}}</dd>
 
                 <dt class="col-sm-3">Location</dt>
                 <dd class="col-sm-9">{{$detail->full_address}}</dd>

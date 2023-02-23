@@ -7,7 +7,7 @@
       <div class="card-body">
         <h4 class="card-title">{{ $title }}</h4>
 
-        <form class="forms-sample" action="/checklist/insert/{{ $checklist[0]->id_checklists }}" method="POST" enctype="multipart/form-data">
+        <form class="forms-sample" action="" method="POST" enctype="multipart/form-data">
             @csrf
 
 
@@ -19,9 +19,7 @@
                 $payload = json_decode($checklist[0]->payload);
                 $monitor = json_decode($checklist[0]->monitor);
             @endphp
-            <div class="form-group">
-                <input type="hidden" class="form-control" name="type" id="type" value={{$checklist[0]->type}}>
-            </div>
+
           <div class="form-group">
             <h4>Visual Inspection of Component</h4>
             <div class="form-check">
@@ -214,19 +212,19 @@
             </div>
           </div>
 
+            <h4 class="mt-2 mb-2">Drone Photo</h4>
+
             @if($checklist[0]->type == 'after')
             <div class="form-group">
-                <label for="exampleInputName1">Image</label>
-                <input type="file" class="form-control @error('image') is-invalid @enderror" name="image">
-                <div class="invalid-feedback">
-                    @error('image')
-                    {{ $message }}
-                    @enderror
+                <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="{{ url('assets/photos/'.$checklist[0]->image) }}" style="height: 250px;"  alt="...">
+                        </div>
+                    </div>
                 </div>
             </div>
             @endif
-
-          <button type="submit" class="btn btn-primary btn-lg text-light">Submit</button>
           <a href="javascript:history.back()" class="btn btn-danger btn-lg text-light">Cancel</a>
 
         </form>

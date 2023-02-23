@@ -31,12 +31,6 @@
                                 </div>
                                 <input type="text" class="form-control" value="{{ $project->name }}" disabled>
                             </div>
-                            {{-- <div class="input-group mb-1">
-                                <div class="input-group-prepend w-50">
-                                    <span class="input-group-text bg-dark text-bold">Checklist Id</span>
-                                </div>
-                                <input type="text" class="form-control" value="{{ $project->id_checklist }}" disabled>
-                            </div> --}}
                             <div class="input-group mb-1">
                                 <div class="input-group-prepend w-50">
                                     <span class="input-group-text bg-dark text-bold">Drone Name</span>
@@ -77,7 +71,7 @@
                                 <div class="input-group-prepend w-50">
                                     <span class="input-group-text bg-dark text-bold">Mission Flight</span>
                                 </div>
-                                <input type="text" class="form-control" value="{{ $project->mission_flight }}" disabled>
+                                <input type="text" class="form-control" value="{{ $project->mission_flight_name }}" disabled>
                             </div>
                             <div class="input-group mb-1">
                                 <div class="input-group-prepend w-50">

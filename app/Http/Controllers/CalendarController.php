@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Checklist;
 use Illuminate\Http\Request;
 use App\Models\Project;
 use Dompdf\Dompdf;
+use Illuminate\Support\Facades\Auth;
 
 class CalendarController extends Controller
 {
@@ -15,25 +17,12 @@ class CalendarController extends Controller
 
     public function index(Request $request)
     {
-        $id = $request->id;
-        $calendar = $this->Project->calendarDrone($id);
-        // dd($calendar);
-
-        if(isset($calendar)){
-            $rangeDate = $this->dateRange($calendar->start_date, $calendar->until_date);
-        }else{
-            $rangeDate = [];
-        }
-
         $data = [
-            'rangeDate' => $rangeDate,
-            'droneName' => $calendar->drone_name ?? '',
             'title' => 'Operation Calendar',
-            'id_drone'    => $id
+            'project' => $this->Project->allData()
         ];
-        // dd($data);
-        // 
-        return view('admin.calendar_operation', $data);
+
+        return view('admin.calendar_list', $data);
     }
 
     public function download($id)
@@ -82,5 +71,40 @@ class CalendarController extends Controller
         }
 
         return $dates;
+    }
+
+    public function getList() {
+        $user = Auth::user();
+        $data = $this->Project->allDataWithQuery();
+
+        if ($user->level == "pilot") {
+            $data = $data->where('id_pilot', '=', $user->id)->get();
+        } else if ($user->level == "manager") {
+            $data = $data->where('id_manager', '=', $user->id)->get();
+        } else {
+            $data = $data->get();
+        }
+        return response()->json(['data' => $data]);
+    }
+
+    public function getDetail($id) {
+        $calendar = $this->Project->calendarDrone($id);
+        // dd($calendar);
+
+        if(isset($calendar)){
+            $rangeDate = $this->dateRange($calendar->start_date, $calendar->until_date);
+        }else{
+            $rangeDate = [];
+        }
+
+        $data = [
+            'rangeDate' => $rangeDate,
+            'droneName' => $calendar->drone_name ?? '',
+            'title' => 'Operation Calendar',
+            'id_drone'    => $id
+        ];
+        // dd($data);
+        //
+        return view('admin.calendar_operation', $data);
     }
 }

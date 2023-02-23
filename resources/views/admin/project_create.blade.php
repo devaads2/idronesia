@@ -49,15 +49,24 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="exampleInputName1">Mission Flight</label>
-                        <input type="text" class="form-control @error('mission_flight') is-invalid @enderror"
-                               placeholder="Mission Flight" name="mission_flight" value="{{ old('mission_flight') }}">
-                        <div class="invalid-feedback">
-                            @error('mission_flight')
-                            {{ $message }}
-                            @enderror
+                    <div class="form-group row">
+                        <div class="col-10">
+                            <label for="exampleInputName1">Select Mission Flight</label>
+                            <select class="form-select form-select-sm @error('id_mission_flight') is-invalid @enderror"
+                                    name="id_mission_flight">
+                                <option value="">----- SELECT MISSION FLIGHT -----</option>
+                                @foreach ($missionflight as $mission)
+                                    <option value="{{ $mission->mission_flight_id }}">{{ $mission->mission_flight_name }}</option>
+                                @endforeach
+                            </select>
+                            <div class="invalid-feedback">
+                                @error('id_mission_flight')
+                                {{ $message }}
+                                @enderror
+                            </div>
                         </div>
+                        <div class="col-2"><a href="/datamaster/missionflight" class="btn btn-block btn-primary text-white vcenter-item" style="height: 60px; width: 100px"
+                                              id="newMissionBtn">Add New Mission Flight</a></div>
                     </div>
 
                     @error('latitude')

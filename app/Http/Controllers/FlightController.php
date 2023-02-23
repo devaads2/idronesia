@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Project;
 use Dompdf\Dompdf;
+use Illuminate\Support\Facades\Auth;
 
 class FlightController extends Controller
 {
@@ -15,14 +16,12 @@ class FlightController extends Controller
 
     public function index(Request $request)
     {
-        $id = $request->id;
         $data = [
-            'detail' => $this->Project->detailProjectDrone($id),
             'title' => 'Flight',
-            'id_drone'    => $id
+            'project' => $this->Project->allData()
         ];
-        
-        return view('admin.flight_schedule', $data);
+
+        return view('admin.flight_list', $data);
     }
 
     public function getFlight(Request $request)
@@ -33,7 +32,7 @@ class FlightController extends Controller
             'title' => 'Flight',
             'id_drone'    => $id
         ];
-        
+
         return view('admin.flight_schedule', $data);
     }
 
@@ -53,4 +52,28 @@ class FlightController extends Controller
         $dompdf->stream('Report_Flight.pdf');
 
     }
+
+public function getList() {
+    $user = Auth::user();
+    $data = $this->Project->allDataWithQuery();
+
+    if ($user->level == "pilot") {
+        $data = $data->where('id_pilot', '=', $user->id)->get();
+    } else if ($user->level == "manager") {
+        $data = $data->where('id_manager', '=', $user->id)->get();
+    } else {
+        $data = $data->get();
+    }
+    return response()->json(['data' => $data]);
+}
+
+public function getDetail($id) {
+    $data = [
+        'detail' => $this->Project->detailProjectDrone($id),
+        'title' => 'Flight',
+        'id_drone'    => $id
+    ];
+
+    return view('admin.flight_schedule', $data);
+}
 }

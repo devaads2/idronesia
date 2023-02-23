@@ -47,19 +47,19 @@
               </div>
 
               <div class="form-group">
-                <label for="exampleInputName1">Mission Flight</label>
-                <input type="text" class="form-control @error('mission_flight') is-invalid @enderror" placeholder="Mission Flight" name="mission_flight" value="{{ $project->mission_flight }}">
-                    <div class="invalid-feedback">
-                        @error('mission_flight')
-                        {{ $message }}
-                        @enderror
-                    </div>
-              </div>
+                        <label for="exampleInputName1">Mission Flight</label>
+                        <select class="form-select form-select-sm" name="id_mission_flight">
+                            @foreach ($missionflight as $d)
+                                <option value="{{ $d->mission_flight_id }}" {{ ($d->mission_flight_id == $project->id_mission_flight) ? 'selected' : '' }}>{{ $d->mission_flight_name }}</option>
+                            @endforeach
+                        </select>
+                      </div>
 
               <div class="form-group">
                 <label for="status_project">Project Status</label>
                 <select class="form-select form-select-sm" name="status_project" disabled>
-                        <option value="{{ $project->status_project }}" {{ ($project->status_project == 'In Progress') ? 'selected' : '' }}>In Progress</option>
+                        <option value="{{ $project->status_project }}" {{ ($project->status_project == 'On Schedule') ? 'selected' : '' }}>On Schedule</option>
+                        <option value="{{ $project->status_project }}" {{ ($project->status_project == 'On Flight') ? 'selected' : '' }}>On Flight</option>
                         <option value="{{ $project->status_project }}" {{ ($project->status_project == 'Complete') ? 'selected' : '' }}>Complete</option>
                         <option value="{{ $project->status_project }}" {{ ($project->status_project == 'Cancelled') ? 'selected' : '' }}>Cancelled</option>
                 </select>

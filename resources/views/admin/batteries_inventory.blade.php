@@ -1,12 +1,12 @@
 @extends('templates.main')
 
 @section('content')
-    
+
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
           <div class="card-body">
-    
-            
+
+
             <div class="d-sm-flex justify-content-between align-items-start mb-3">
                 <div>
                     <h4 class="card-title card-title-dash">{{ $title }}</h4>
@@ -25,6 +25,13 @@
               </div>
             @endif
 
+              @if (session('error'))
+                  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                      {{ session('error') }}
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+              @endif
+
             <div class="table-responsive">
               <table class="table table-bordered">
                 <thead>
@@ -35,6 +42,7 @@
                     <th>Long Battery Life</th>
                     <th>Battery Capacity</th>
                     <th>Battery Voltage</th>
+                      <th>Status</th>
                     <th class="text-center">Action</th>
                   </tr>
                 </thead>
@@ -47,6 +55,11 @@
                     <td>{{ $item->long_life }}</td>
                     <td>{{ $item->capacity }}</td>
                     <td>{{ $item->voltage }}</td>
+                      @if($item->status == 'in_used')
+                          <td><span class="btn btn-warning btn-fw m-0 text-white" style="line-height: 10px">In Used</span></td>
+                      @else
+                          <td><span class="btn btn-success btn-fw m-0 text-white" style="line-height: 10px">Available</span></td>
+                      @endif
                     <td class="text-center">
                         <a href="/inventory/batteries/detail/{{ $item->id }}" class=""><i class="icon-sm mdi mdi-eye text-success"></i></a>
                         <a href="/inventory/batteries/edit/{{ $item->id }}" class="px-2"><i class="icon-sm mdi mdi-table-edit text-primary"></i></a>

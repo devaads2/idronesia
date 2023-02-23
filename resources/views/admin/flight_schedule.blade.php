@@ -10,12 +10,6 @@
           <h4 class="card-title card-title-dash">{{ $title }}</h4>
         </div>
         <div class="col-md-3">
-          <form>
-            <div class="input-group">
-              <input type="text" class="form-control" name="id" placeholder="Search by ID Project" style="height: 2.2rem;" aria-label="Search" aria-describedby="basic-addon2">
-              <button type="submit" class="btn btn-block btn-primary text-white" type="button" id="button-addon2"><i class="mdi mdi-magnify"></i></button>
-            </div>
-          </form>
         </div>
         <div class="col-md-2 px-0">
           @if(isset($detail))
@@ -54,7 +48,7 @@
           <tr>
             <td>Mission Flight</td>
             <td style="width: 2%;">:</td>
-            <td>{{ $detail->mission_flight }}</td>
+            <td>{{ $detail->mission_flight_name }}</td>
           </tr>
           <tr>
             <td style="width: 20%;">Location</td>
@@ -98,6 +92,7 @@
           <img class="w-50" src="{{ asset('assets/photos/drone.jpeg') }}" alt="">
         </div>
       </div>
+            <a href="/flight" class="btn btn-danger btn-lg text-light">Back</a>
       @else
         <p>Please input ID Project for more info</p>
       @endif

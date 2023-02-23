@@ -19,7 +19,7 @@ class KitsController extends Controller
             'kits' => $this->Kits->allData(),
             'title' => 'Inventory Kits'
         ];
-        
+
         return view('admin.kits_inventory', $data);
     }
 
@@ -33,7 +33,7 @@ class KitsController extends Controller
             'kits' => $this->Kits->detailData($id),
             'title' => 'Detail Kits'
         ];
-        
+
         return view('admin.kits_detail', $data);
     }
 
@@ -62,7 +62,8 @@ class KitsController extends Controller
             'kits_name' => Request()->kits_name,
             'type' => Request()->type,
             'description' => Request()->description,
-            'image' => $fileName
+            'image' => $fileName,
+            'status' => 'available'
         ];
 
         $this->Kits->insertData($data);
@@ -119,6 +120,10 @@ class KitsController extends Controller
     public function delete($id)
     {
         $kits = $this->Kits->detailData($id);
+
+        if($kits->status == 'in_used') {
+            return redirect()->route('drone')->with(['error' => 'Unable to delete. Kit in used']);
+        }
 
         if($kits->image <> '')
         {

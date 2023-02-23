@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Batteries;
+use App\Models\Drone;
+use App\Models\Equipments;
+use App\Models\Kits;
 use Illuminate\Http\Request;
 use App\Models\Checklist;
 use App\Models\Project;
@@ -25,12 +29,39 @@ class ChecklistController extends Controller
             ->leftJoin('batteries', 'batteries.id', '=', 'projects.id_batteries')
             ->leftJoin('equipments', 'equipments.id', '=', 'projects.id_equipments')
             ->leftJoin('kits', 'kits.id', '=', 'projects.id_kits')
+            ->leftJoin('checklists', 'checklists.id_checklists', '=', 'projects.id_checklist_before')
+            ->leftJoin('missionflights', 'missionflights.mission_flight_id', '=', 'projects.id_mission_flight')
             ->where('id_pilot','=',$id)
+            ->where('checklists.type','=', 'before')
             ->get();
 
         $data = [
             'project' =>  $project,
-            'title' => 'Data Checklists '
+            'title' => 'Pre Flight Checklists '
+        ];
+
+        return view('admin.checklist', $data);
+    }
+
+    public function indexAfter()
+    {
+        $id = auth()->user()->id;
+
+        $project =  DB::table('projects')
+            ->leftJoin('drones', 'drones.id', '=', 'projects.id_drone')
+            ->leftJoin('batteries', 'batteries.id', '=', 'projects.id_batteries')
+            ->leftJoin('equipments', 'equipments.id', '=', 'projects.id_equipments')
+            ->leftJoin('kits', 'kits.id', '=', 'projects.id_kits')
+            ->leftJoin('checklists', 'checklists.id_checklists', '=', 'projects.id_checklist_after')
+            ->leftJoin('missionflights', 'missionflights.mission_flight_id', '=', 'projects.id_mission_flight')
+            ->where('id_pilot','=',$id)
+            ->where('checklists.type','=', 'after')
+            ->where('checklists.status','<>', 'waiting')
+            ->get();
+
+        $data = [
+            'project' =>  $project,
+            'title' => 'Post Flight Checklists '
         ];
 
         return view('admin.checklist', $data);
@@ -45,6 +76,15 @@ class ChecklistController extends Controller
         return view('admin.checklist_create', compact('title', 'checklist'));
     }
 
+    public function detail($id)
+    {
+
+        $title = 'Form Checklists';
+        $checklist = Checklist::where('id_checklists', $id)->get();
+
+        return view('admin.checklist_detail', compact('title', 'checklist'));
+    }
+
     public function insert($id)
     {
         $data = [
@@ -54,6 +94,7 @@ class ChecklistController extends Controller
             'power' => json_encode(Request()->power),
             'payload' => json_encode(Request()->payload),
             'monitor' => json_encode(Request()->monitor),
+            'status' => 'done'
         ];
 
         if($data['visual'] === 'null')
@@ -81,13 +122,55 @@ class ChecklistController extends Controller
             $data['monitor'] = '["-"]';
         }
 
+        if(Request()->type == 'before') {
+            $project =  DB::table('projects')
+                ->where('id_checklist_before', '=', $id)
+                ->first();
 
-        $this->Checklist->updateData($id, $data);
-        return redirect()->route('checklist')->with('message', 'Checklist Data Updated Successfully');
+            $idChecklistAfter = $project->id_checklist_after;
 
+            $checklistData = [
+                'status' => 'ready'
+            ];
+
+            $this->Checklist->updateData($idChecklistAfter, $checklistData);
+
+            $projectData = [
+                'status_project' => 'On Flight'
+            ];
+            $this->Project->updateData($project->id_projects, $projectData);
+            $this->Checklist->updateData($id, $data);
+
+            return redirect()->route('checklist')->with('message', 'Checklist Data Updated Successfully');
+        } else {
+            Request()->validate([
+                'image' => 'required|mimes:jpeg,jpg,png|max:2048'
+            ], [
+                'image.required' => 'Please select image !'
+            ]);
+            info(Request());
+
+            $file = Request()->image;
+            $filename = uniqid() . '.' . $file->extension();
+            $file->move(public_path('assets/photos'), $filename);
+            $data['image'] = $filename;
+
+            $project =  DB::table('projects')
+                ->where('id_checklist_after', '=', $id)
+                ->first();
+
+            $projectData = [
+                'status_project' => 'Complete'
+            ];
+            $this->Project->updateData($project->id_projects, $projectData);
+            $this->Checklist->updateData($id, $data);
+
+            Drone::where('id', '=', $project->id_drone)->update(['status' => 'available']);
+            Equipments::where('id', '=', $project->id_equipments)->update(['status' => 'available']);
+            Batteries::where('id', '=', $project->id_batteries)->update(['status' => 'available']);
+            Kits::where('id', '=', $project->id_kits)->update(['status' => 'available']);
+
+            return redirect()->route('checklistAfter')->with('message', 'Checklist Data Updated Successfully');
+        }
     }
-
-
-
-
 }

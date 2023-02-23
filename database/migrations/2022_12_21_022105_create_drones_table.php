@@ -25,6 +25,7 @@ class CreateDronesTable extends Migration
             $table->string('photo_res');
             $table->string('product_weight');
             $table->string('image')->default('drone.jpg');
+            $table->string('status');
             $table->timestamps();
         });
     }

@@ -21,6 +21,9 @@ class CreateChecklistsTable extends Migration
             $table->string('power')->default('["-"]');
             $table->string('payload')->default('["-"]');
             $table->string('monitor')->default('["-"]');
+            $table->string('image');
+            $table->string('status');
+            $table->string('type');
             $table->timestamps();
         });
     }
