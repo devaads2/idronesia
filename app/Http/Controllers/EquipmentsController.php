@@ -19,7 +19,7 @@ class EquipmentsController extends Controller
             'equipments' => $this->Equipments->allData(),
             'title' => 'Inventory Equipments'
         ];
-        
+
         return view('admin.equipments_inventory', $data);
     }
 
@@ -34,7 +34,7 @@ class EquipmentsController extends Controller
             'equipments' => $this->Equipments->detailData($id),
             'title' => 'Detail Equipments'
         ];
-        
+
         return view('admin.equipments_detail', $data);
     }
 
@@ -64,7 +64,8 @@ class EquipmentsController extends Controller
             'equipments_name' => Request()->equipments_name,
             'type' => Request()->type,
             'description' => Request()->description,
-            'image' => $fileName
+            'image' => $fileName,
+            'status' => 'available'
         ];
 
         $this->Equipments->insertData($data);
@@ -98,14 +99,14 @@ class EquipmentsController extends Controller
             $file = Request()->image;
             $fileName = Request()->equipments_name . '.' . $file->extension();
             $file->move(public_path('assets/photos'), $fileName);
-    
+
             $data = [
                 'equipments_name' => Request()->equipments_name,
                 'type' => Request()->type,
                 'description' => Request()->description,
                 'image' => $fileName
             ];
-    
+
             $this->Equipments->updateData($id, $data);
         }else
         {
@@ -114,7 +115,7 @@ class EquipmentsController extends Controller
                 'type' => Request()->type,
                 'description' => Request()->description,
             ];
-    
+
             $this->Equipments->updateData($id, $data);
         }
         return redirect()->route('equipments')->with('message', 'Equipments Data Updated Successfully');
@@ -123,6 +124,10 @@ class EquipmentsController extends Controller
     public function delete($id)
     {
         $equipments = $this->Equipments->detailData($id);
+
+        if($equipments->status == 'in_used') {
+            return redirect()->route('drone')->with(['error' => 'Unable to delete. Equipment in used']);
+        }
 
         if($equipments->image <> '')
         {
@@ -149,6 +154,6 @@ class EquipmentsController extends Controller
         $dompdf->stream('inventory_equipments.pdf');
 
     }
-    
+
 
 }

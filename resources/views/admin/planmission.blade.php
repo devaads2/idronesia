@@ -137,7 +137,7 @@
                         "data": null,
                         "defaultContent": ""
                     },
-                    {"data": "mission_flight"},
+                    {"data": "mission_flight_name"},
                     {"data": "start_date"},
                     {"data": "until_date"},
                     {"data": "status_project",

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateKitsTable extends Migration
+class CreateMissionFlightsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,9 @@ class CreateKitsTable extends Migration
      */
     public function up()
     {
-        Schema::create('kits', function (Blueprint $table) {
-            $table->id();
-            $table->string('kits_name');
-            $table->string('type');
-            $table->string('description');
-            $table->string('image')->default('kits.jpg');
-            $table->string('status');
+        Schema::create('missionflights', function (Blueprint $table) {
+            $table->id('mission_flight_id');
+            $table->string('mission_flight_name');
             $table->timestamps();
         });
     }
@@ -31,6 +27,6 @@ class CreateKitsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kits');
+        Schema::dropIfExists('missionflight');
     }
 }

@@ -80,7 +80,8 @@ class DroneController extends Controller
             'video_res' => Request()->video_res,
             'photo_res' => Request()->photo_res,
             'product_weight' => Request()->product_weight,
-            'image' => $fileName
+            'image' => $fileName,
+            'status' => 'available'
         ];
 
         $this->Drone->insertData($data);
@@ -161,6 +162,10 @@ class DroneController extends Controller
     public function delete($id)
     {
         $drone = $this->Drone->detailData($id);
+
+        if($drone->status == 'in_used') {
+            return redirect()->route('drone')->with(['error' => 'Unable to delete. Drone in used']);
+        }
 
         if($drone->image <> '')
         {

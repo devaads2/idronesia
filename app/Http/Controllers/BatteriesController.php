@@ -68,7 +68,8 @@ class BatteriesController extends Controller
             'long_life' => Request()->long_life,
             'capacity' => Request()->capacity,
             'voltage' => Request()->voltage,
-            'image' => $fileName
+            'image' => $fileName,
+            'status' => 'available'
         ];
 
         $this->Batteries->insertData($data);
@@ -136,6 +137,10 @@ class BatteriesController extends Controller
     public function delete($id)
     {
         $batteries = $this->Batteries->detailData($id);
+
+        if($batteries->status == 'in_used') {
+            return redirect()->route('batteries')->with(['error' => 'Unable to delete. Battery in used']);
+        }
 
         if($batteries->image <> '')
         {

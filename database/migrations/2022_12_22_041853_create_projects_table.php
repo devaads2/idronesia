@@ -25,7 +25,7 @@ class CreateProjectsTable extends Migration
             $table->integer('id_kits');
             $table->date('start_date');
             $table->date('until_date');
-            $table->string('mission_flight');
+            $table->string('id_mission_flight');
             $table->double('latitude');
             $table->double('longitude');
             $table->string('full_address');

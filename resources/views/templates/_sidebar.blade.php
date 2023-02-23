@@ -37,6 +37,19 @@
                     </ul>
                 </div>
             </li>
+            <li class="nav-item {{ request()->is('/datamaster') ? 'active' : '' }}">
+                <a class="nav-link" data-bs-toggle="collapse" href="#form-elements2" aria-expanded="false"
+                   aria-controls="form-elements">
+                    <i class="menu-icon mdi mdi-database"></i>
+                    <span class="menu-title">Data Master</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="form-elements2">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"><a class="nav-link" href="/datamaster/missionflight">Mission Flight</a></li>
+                    </ul>
+                </div>
+            </li>
             <li class="nav-item {{ request()->is('/report') ? 'active' : '' }}">
                 <a class="nav-link" href="/report">
                     <i class="mdi mdi-file menu-icon"></i>

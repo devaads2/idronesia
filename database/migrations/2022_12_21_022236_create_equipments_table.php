@@ -19,6 +19,7 @@ class CreateEquipmentsTable extends Migration
             $table->string('type');
             $table->string('description');
             $table->string('image')->default('equipments.jpg');
+            $table->string('status');
             $table->timestamps();
         });
     }

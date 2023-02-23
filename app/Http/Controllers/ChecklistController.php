@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Batteries;
+use App\Models\Drone;
+use App\Models\Equipments;
+use App\Models\Kits;
 use Illuminate\Http\Request;
 use App\Models\Checklist;
 use App\Models\Project;
@@ -26,6 +30,7 @@ class ChecklistController extends Controller
             ->leftJoin('equipments', 'equipments.id', '=', 'projects.id_equipments')
             ->leftJoin('kits', 'kits.id', '=', 'projects.id_kits')
             ->leftJoin('checklists', 'checklists.id_checklists', '=', 'projects.id_checklist_before')
+            ->leftJoin('missionflights', 'missionflights.mission_flight_id', '=', 'projects.id_mission_flight')
             ->where('id_pilot','=',$id)
             ->where('checklists.type','=', 'before')
             ->get();
@@ -48,6 +53,7 @@ class ChecklistController extends Controller
             ->leftJoin('equipments', 'equipments.id', '=', 'projects.id_equipments')
             ->leftJoin('kits', 'kits.id', '=', 'projects.id_kits')
             ->leftJoin('checklists', 'checklists.id_checklists', '=', 'projects.id_checklist_after')
+            ->leftJoin('missionflights', 'missionflights.mission_flight_id', '=', 'projects.id_mission_flight')
             ->where('id_pilot','=',$id)
             ->where('checklists.type','=', 'after')
             ->where('checklists.status','<>', 'waiting')
@@ -159,11 +165,12 @@ class ChecklistController extends Controller
             $this->Project->updateData($project->id_projects, $projectData);
             $this->Checklist->updateData($id, $data);
 
+            Drone::where('id', '=', $project->id_drone)->update(['status' => 'available']);
+            Equipments::where('id', '=', $project->id_equipments)->update(['status' => 'available']);
+            Batteries::where('id', '=', $project->id_batteries)->update(['status' => 'available']);
+            Kits::where('id', '=', $project->id_kits)->update(['status' => 'available']);
+
             return redirect()->route('checklistAfter')->with('message', 'Checklist Data Updated Successfully');
         }
     }
-
-
-
-
 }

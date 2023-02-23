@@ -21,6 +21,7 @@ class CreateBatteriesTable extends Migration
             $table->string('capacity');
             $table->string('voltage');
             $table->string('image');
+            $table->string('status');
             $table->timestamps();
         });
     }

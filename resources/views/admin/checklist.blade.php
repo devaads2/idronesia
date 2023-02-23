@@ -39,7 +39,7 @@
                             <tr>
                                 <td>{{ $loop->iteration  }}</td>
                                 <td>{{ $item->drone_name }}</td>
-                                <td>{{ $item->mission_flight }}</td>
+                                <td>{{ $item->mission_flight_name }}</td>
                                 <td>{{ $item->start_date }}</td>
                                 <td>{{ $item->until_date }}</td>
                                 @if($item->status === "ready")
